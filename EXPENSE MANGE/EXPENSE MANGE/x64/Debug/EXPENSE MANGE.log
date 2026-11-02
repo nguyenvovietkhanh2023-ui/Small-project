@@ -1,0 +1,6 @@
+﻿  EXPENSE MANGE.cpp
+C:\Users\PC\Documents\Learning C++\Small project\EXPENSE MANGE\EXPENSE MANGE.cpp(382,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Documents\Learning C++\Small project\EXPENSE MANGE\EXPENSE MANGE.cpp(383,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Documents\Learning C++\Small project\EXPENSE MANGE\EXPENSE MANGE.cpp(384,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Documents\Learning C++\Small project\EXPENSE MANGE\EXPENSE MANGE.cpp(402,1): error C2065: 'm': undeclared identifier
+C:\Users\PC\Documents\Learning C++\Small project\EXPENSE MANGE\EXPENSE MANGE.cpp(403,3): error C2143: syntax error: missing ';' before 'if'

@@ -1,0 +1,5 @@
+﻿  EXPENSE MANGE.cpp
+C:\Users\PC\source\repos\EXPENSE MANGE\EXPENSE MANGE\EXPENSE MANGE.cpp(382,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\source\repos\EXPENSE MANGE\EXPENSE MANGE\EXPENSE MANGE.cpp(383,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\source\repos\EXPENSE MANGE\EXPENSE MANGE\EXPENSE MANGE.cpp(384,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  EXPENSE MANGE.vcxproj -> C:\Users\PC\source\repos\EXPENSE MANGE\x64\Debug\EXPENSE MANGE.exe
