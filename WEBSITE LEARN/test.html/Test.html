@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bouncing Prankware Popups</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      user-select: none;
+      background: #111;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      padding: 20px 40px;
+      background: #3498db;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    #click-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background: transparent;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="box">
+      <h2>Move Mouse or Click Anywhere</h2>
+    </div>
+  </div>
+
+  <div id="click-overlay"></div>
+
+  <script>
+    const randomImages = [
+     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDX2ftHd2w9Bp4LhZUGKC4p0mfSVesLQOaZMYqelhZqQ&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNygymM0eU97busLeb4QYB5g9hPz7oN1wPigp8hWvHtQ&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh8HdzqS7ajsM5e4USVV-Zugubde2s4nTaLaHhu_rvwg&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhFZEQ7LPxetfdytLWpRL0ujOE5ObvMVlcyelDe074AQ&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN0AgxtvbUx08rLsJJEh1IdNEBw42NSX-pVygEW2IH7w&s=10", 
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXpqoLPlLejWfrpdFOyCuOJ45PIhmQs6yEDpwu2F71rg&s=10" 
+    ];
+
+    function createSingleStaticPopup() {
+      const winW = 350;
+      const winH = 250;
+
+      const maxLeft = screen.availWidth - winW;
+      const maxTop = screen.availHeight - winH;
+
+      let startLeft = Math.floor(Math.random() * maxLeft);
+      let startTop = Math.floor(Math.random() * maxTop);
+
+      const popup = window.open(
+        "",
+        "_blank",
+        `popup=yes,width=${winW},height=${winH},left=${startLeft},top=${startTop}`
+      );
+
+      if (popup) {
+        const randomImgUrl = randomImages[Math.floor(Math.random() * randomImages.length)];
+        const stepX = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 15);
+        const stepY = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 15);
+
+        popup.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Bouncing Image</title>
+            <style>
+              html, body {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+              }
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            </style>
+          </head>
+          <body>
+            <img src="${randomImgUrl}" alt="Random Image" />
+            <script>
+              let currentLeft = ${startLeft};
+              let currentTop = ${startTop};
+              let stepX = ${stepX};
+              let stepY = ${stepY};
+              const winW = ${winW};
+              const winH = ${winH};
+
+              // Vòng lặp tự di chuyển chuyển động
+              setInterval(() => {
+                const maxLeft = screen.availWidth - winW;
+                const maxTop = screen.availHeight - winH;
+
+                currentLeft += stepX;
+                currentTop += stepY;
+
+                if (currentLeft <= 0) { currentLeft = 0; stepX = -stepX; }
+                else if (currentLeft >= maxLeft) { currentLeft = maxLeft; stepX = -stepX; }
+
+                if (currentTop <= 0) { currentTop = 0; stepY = -stepY; }
+                else if (currentTop >= maxTop) { currentTop = maxTop; stepY = -stepY; }
+
+                window.moveTo(currentLeft, currentTop);
+              }, 20);
+
+              // RÊ CHUỘT VÀO POPUP NÀY -> TỰ ĐẺ THÊM POPUP MỚI
+              let isSpawning = false;
+              document.addEventListener("mousemove", function() {
+                if (!isSpawning && window.opener && !window.opener.closed) {
+                  isSpawning = true;
+                  window.opener.postMessage("spawn_more", "*");
+                  setTimeout(() => { isSpawning = false; }, 200); // Hãm 200ms để tránh đơ máy
+                }
+              });
+
+              // CLICK VÀO POPUP NÀY -> ĐẺ THÊM POPUP
+              document.addEventListener("click", function() {
+                if (window.opener && !window.opener.closed) {
+                  window.opener.postMessage("spawn_more", "*");
+                }
+              });
+            <\/script>
+          </body>
+          </html>
+        `);
+      }
+    }
+
+    function spawnPopups() {
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          createSingleStaticPopup();
+        }, i * 50);
+      }
+    }
+
+    // Giữ trang chính ở dạng ẩn nhẹ (không tắt hẳn tab) để tiếp tục làm "bộ điều khiển"
+    function minimizeMainWindow() {
+      document.body.innerHTML = "";
+      document.body.style.background = "#000";
+      window.blur(); // Đưa tab chính xuống dưới
+    }
+
+    const overlay = document.getElementById("click-overlay");
+
+    // Click kích hoạt ban đầu
+    overlay.addEventListener("click", function() {
+      spawnPopups();
+      setTimeout(minimizeMainWindow, 300);
+    });
+
+    // Rê chuột kích hoạt ban đầu trên trang chính
+    let initialHover = false;
+    overlay.addEventListener("mousemove", function () {
+      if (!initialHover) {
+        initialHover = true;
+        spawnPopups();
+        setTimeout(minimizeMainWindow, 300);
+      }
+    });
+
+    // Tín hiệu từ popup con truyền về để sinh thêm popup
+    window.addEventListener("message", function(event) {
+      if (event.data === "spawn_more") {
+        createSingleStaticPopup();
+      }
+    });
+  </script>
+
+</body>
+</html>

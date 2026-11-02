@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test Popup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Demo Popup Window</h2>
+  <button onclick="startTest()">Bắt đầu test</button>
+  <p id="status"></p>
+
+  <script>
+    function spawnPopup(delay) {
+      setTimeout(() => {
+        const popup = window.open(
+          "",
+          "_blank",
+          `width=300,height=200,left=${Math.random() * 500},top=${Math.random() * 500}`
+        );
+        if (popup) {
+          popup.document.write("<h1>Xin chào!</h1><p>Popup được mở sau " + delay + "ms</p>");
+        } else {
+          document.getElementById("status").textContent =
+            "Popup bị trình duyệt chặn! Hãy cho phép popup cho trang này.";
+        }
+      }, delay);
+    }
+
+    function startTest() {
+      document.getElementById("status").textContent = "Đang chạy test popup...";
+      spawnPopup(1000);
+      spawnPopup(3000);
+      spawnPopup(5000);
+    }
+  </script>
+
+</body>
+</html>
