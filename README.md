@@ -4,14 +4,14 @@ Repo lưu lại các bài tập và dự án nhỏ trong quá trình mình học
 
 ## Danh sách dự án
 
-| Dự án                                | Loại               | Mô tả                                                     |
-|--------------------------------------|--------------------|-----------------------------------------------------------|
-| [XO_game.cpp](XO_game.cpp)           | C++                | Game XO (Tic-Tac-Toe) chơi trên console                   |
-| [MAZE](MAZE)                         | C++                | Game thoát mê cung                                        |
-| [GUESS GAME .CPP](<GUESS GAME .CPP>) | C++                | Game đoán số                                              |
-| [TAI XIU.cpp](TAI%20XIU.cpp)         | C++                | Game Tài Xỉu                                              |
-| [EXPENSE MANGE](<EXPENSE MANGE>)     | C++                | Chương trình quản lý chi tiêu ( hoàn thiện ở mức cơ bản ) |
-| [WEBSITE LEARN](<WEBSITE LEARN>)     | HTML/CSS/JS        | Website cá nhân ( đang hoàn thiện )                       |
+| Dự án                 | Loại               | Mô tả                                                     |
+|-----------------------|--------------------|-----------------------------------------------------------|
+| [XO_game.cpp]         | C++                | Game XO (Tic-Tac-Toe) chơi trên console                   |
+| [MAZE]                | C++                | Game thoát mê cung                                        |
+| [GUESS GAME .CPP])    | C++                | Game đoán số                                              |
+| [TAI XIU.cpp]         | C++                | Game Tài Xỉu                                              |
+| [EXPENSE MANGE]       | C++                | Chương trình quản lý chi tiêu ( hoàn thiện ở mức cơ bản ) |
+| [WEBSITE LEARN]       | HTML/CSS/JS        | Website cá nhân ( đang hoàn thiện )                       |
 
 
 ## Cách chạy các chương trình C++
